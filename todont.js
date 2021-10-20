@@ -1,29 +1,34 @@
 const readlineSync = require("readline-sync");
 const chalk = require("chalk");
 const getListsMenu = require("./getListsMenu");
-const lists = require("./lists");
 const viewList = require("./viewList");
+const app = require("./app");
 
+// Ask them what list they want to check out (or make a new one).
 console.clear();
 let response = readlineSync.question(getListsMenu()).toLowerCase();
 
+// Loop until they enter "q".
 while (response !== "q") {
   if (isNaN(response) === false) {
-    const list = lists[response - 1];
+    // If they entered a number, they want to view that list.
+    const list = app.lists[response - 1];
     viewList(list);
   } else if (response === "n") {
+    // They want to make a new list.
     console.clear();
-    // get the text from the user
-    const text = readlineSync.question("What list do you want to add?\n\n");
-    // make a new todo out of it
-    const todo = makeTodo(text);
-    // put it in our todo list
-    todos.unshift(todo);
+    const title = readlineSync.question(
+      "What title should this new list have?\n\n"
+    );
+
+    app.addList(title);
     console.clear();
   } else {
+    // They entered something else.
+    console.clear();
     console.log(chalk.red.bold(`${response} is not a valid input.`));
   }
 
-  console.clear();
+  // Ask them what list they want to check out (or make a new one).
   response = readlineSync.question(getListsMenu()).toLowerCase();
 }

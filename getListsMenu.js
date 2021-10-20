@@ -1,8 +1,8 @@
 const chalk = require("chalk");
-const lists = require("./lists");
+const app = require("./app");
 
 function getListsMenu() {
-  const listsDisplay = lists
+  const listsDisplay = app.lists
     .map((list, i) => `${i + 1}. ${list.title}`)
     .join("\n");
 

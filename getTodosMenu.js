@@ -3,7 +3,7 @@ const chalk = require("chalk");
 function getTodosMenu(list) {
   const todoList = list.todos
     .map((todo, i) => {
-      const symbol = todo.isComplete ? "☑️" : "🆇";
+      const symbol = todo.isComplete ? "☑" : "🆇";
 
       return `${i + 1}. ${symbol} ${todo.text}`;
     })
@@ -12,11 +12,14 @@ function getTodosMenu(list) {
   const menu = `${chalk.blue.bold(
     "Choose a todo to edit (by entering its number) or choose an option at the bottom (by letter):"
   )}
+
+${chalk.bold(list.title)}
+
 ${todoList}
 
 (n) Add new todo.
-(d) Remove this list.
 (r) Rename this list.
+(d) Delete this list.
 (b) Back to lists.
 
 `;
